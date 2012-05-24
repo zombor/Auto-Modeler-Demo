@@ -1,0 +1,9 @@
+[submodule "system"]
+	path = system
+	url = git://github.com/kohana/core.git
+[submodule "modules/database"]
+	path = modules/database
+	url = git://github.com/kohana/database.git
+[submodule "modules/auto-modeler"]
+	path = modules/auto-modeler
+	url = git://github.com/zombor/Auto-Modeler.git
