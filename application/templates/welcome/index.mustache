@@ -4,14 +4,27 @@
 </ul>
 <h2>Create a new user</h2>
 <form action="" method="post">
+	{{#has_errors}}
+		<ul class="errors">
+		{{#errors}}
+			<li><label for="{{key}}">{{error}}</label></li>
+		{{/errors}}
+		</ul>
+	{{/has_errors}}
 	<dl>
 		{{#email}}
-		<dt><label for="{{id}}">{{label}}</label></dt>
-		<dd><input name="{{name}}" id="{{id}}" /></dd>
+		<dt>
+			<label for="{{id}}">{{label}}</label>
+			{{#has_error}}<label for="{{id}}" class="error">{{error}}</label>{{/has_error}}
+		</dt>
+		<dd><input name="{{name}}" id="{{id}}"{{#has_error}} class="highlight bad"{{/has_error}} /></dd>
 		{{/email}}
 		{{#password}}
-		<dt><label for="{{id}}">{{label}}</label></dt>
-		<dd><input type="password" name="{{name}}" id="{{id}}" /></dd>
+		<dt>
+			<label for="{{id}}">{{label}}</label>
+			{{#has_error}}<label for="{{id}}" class="error">{{error}}</label>{{/has_error}}
+		</dt>
+		<dd><input type="password" name="{{name}}" id="{{id}}"{{#has_error}} class="highlight bad"{{/has_error}} /></dd>
 		{{/password}}
 		<dd><input type="submit" value="New User" /></dd>
 	</dl>
