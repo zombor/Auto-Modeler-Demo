@@ -7,3 +7,6 @@
 [submodule "modules/auto-modeler"]
 	path = modules/auto-modeler
 	url = git://github.com/zombor/Auto-Modeler.git
+[submodule "modules/kostache"]
+	path = modules/kostache
+	url = git://github.com/zombor/KOstache.git

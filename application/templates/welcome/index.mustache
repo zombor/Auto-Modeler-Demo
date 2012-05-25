@@ -1,0 +1,18 @@
+<h2>Actions</h2>
+<ul>
+	<li><a href="#">List all users</a></li>
+</ul>
+<h2>Create a new user</h2>
+<form action="" method="post">
+	<dl>
+		{{#email}}
+		<dt><label for="{{id}}">{{label}}</label></dt>
+		<dd><input name="{{name}}" id="{{id}}" /></dd>
+		{{/email}}
+		{{#password}}
+		<dt><label for="{{id}}">{{label}}</label></dt>
+		<dd><input type="password" name="{{name}}" id="{{id}}" /></dd>
+		{{/password}}
+		<dd><input type="submit" value="New User" /></dd>
+	</dl>
+</form>
