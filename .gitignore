@@ -1,0 +1,5 @@
+composer.lock
+composer.phar
+*.swp
+vendor
+phpspec-composer.php
