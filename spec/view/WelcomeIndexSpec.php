@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__.'/../../application/classes/view/welcome/index.php';
-
 class DescribeWelcomeIndex extends \PHPSpec\Context
 {
 	public function before()
