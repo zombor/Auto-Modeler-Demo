@@ -1,6 +1,6 @@
 <?php
 
-class View_Welcome_Index extends KOstache
+class View_User_Add extends KOstache
 {
 	public $errors = array();
 

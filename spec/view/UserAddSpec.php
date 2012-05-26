@@ -1,10 +1,10 @@
 <?php
 
-class DescribeWelcomeIndex extends \PHPSpec\Context
+class DescribeUserAdd extends \PHPSpec\Context
 {
 	public function before()
 	{
-		$this->subject = new View_Welcome_Index;
+		$this->subject = new View_User_Add;
 	}
 
 	public function itHasAnEmailField()

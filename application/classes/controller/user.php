@@ -4,7 +4,7 @@ class Controller_User extends Controller
 {
 	public function action_add()
 	{
-		$view = new View_Welcome_Index;
+		$view = new View_User_Add;
 		if (HTTP_Request::POST == $this->request->method())
 		{
 			$user = new Model_User;
@@ -28,5 +28,11 @@ class Controller_User extends Controller
 		}
 
 		$this->response->body($view);
+	}
+
+	public function action_list()
+	{
+		$view = new View_User_List;
+
 	}
 }
