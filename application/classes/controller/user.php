@@ -1,8 +1,8 @@
 <?php
 
-class Controller_Welcome extends Controller
+class Controller_User extends Controller
 {
-	public function action_index()
+	public function action_add()
 	{
 		$view = new View_Welcome_Index;
 		if (HTTP_Request::POST == $this->request->method())
@@ -19,7 +19,7 @@ class Controller_Welcome extends Controller
 			try
 			{
 				$dao->create($user);
-				$this->request->redirect('welcome/list');
+				$this->request->redirect('user/list');
 			}
 			catch (AutoModeler_Exception_Validation $e)
 			{

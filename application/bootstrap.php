@@ -102,12 +102,10 @@ Kohana::modules(array(
 	'kostache' => MODPATH.'kostache',
 	));
 
-/**
- * Set the routes. Each route must have a minimum of a name, a URI and a set of
- * defaults for the URI.
- */
-Route::set('default', '(<controller>(/<action>(/<id>)))')
-	->defaults(array(
-		'controller' => 'welcome',
-		'action'     => 'index',
-	));
+Route::set('add user', '(user/add.html)')
+	->defaults(
+		array(
+			'controller' => 'user',
+			'action' => 'add',
+		)
+	);
