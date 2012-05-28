@@ -19,7 +19,7 @@ class Controller_User extends Controller
 			try
 			{
 				$dao->create($user);
-				$this->request->redirect('user/list');
+				$this->request->redirect(Route::get('list users')->uri());
 			}
 			catch (AutoModeler_Exception_Validation $e)
 			{
@@ -34,5 +34,8 @@ class Controller_User extends Controller
 	{
 		$view = new View_User_List;
 
+		$gateway = new AutoModeler_Gateway_Users(Database::instance());
+		$view->users = $gateway->find_users();
+		$this->response->body($view);
 	}
 }
