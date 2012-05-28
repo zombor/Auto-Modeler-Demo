@@ -1,6 +1,18 @@
-# Auto-Modeler-Demo
+# Kohana Demo App
 
-This is a demo app to show how to use AutoModeler v5.
+This is a demo app to show how to use various Kohana techniques I use.
+
+## Tech used
+
+ - AutoModeler v5
+ - Kostache
+ - Kohana 3.2
+
+## Things to do
+
+ - Kostache layouts
+ - Kostache recursing menus
+ - DCI
 
 ## Specs
 
