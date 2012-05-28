@@ -9,4 +9,15 @@ class AutoModeler_Gateway_Users extends AutoModeler_Gateway_Database
 	{
 		return $this->_load_set($select);
 	}
+
+	public function find_user($id, Database_Query_Builder_Select $select = NULL)
+	{
+		if ($select === NULL)
+		{
+			$select = db::select();
+		}
+
+		$select->where('id', '=', $id);
+		return $this->_load_object($select);
+	}
 }

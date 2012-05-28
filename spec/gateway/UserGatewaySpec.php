@@ -2,15 +2,24 @@
 
 class DescribeUserGateway extends \PHPSpec\Context
 {
-	public function before()
+	public function beforeAll()
 	{
 		$this->db = Mockery::mock('alias:Database');
+	}
+
+	public function before()
+	{
 		$this->subject = new AutoModeler_Gateway_Users($this->db);
+	}
+
+	public function after()
+	{
+		\Mockery::close();
 	}
 
 	public function itFindsAllUsers()
 	{
-		$select = Mockery::mock('alias:Database_Query_Builder_Select');
+		$select = Mockery::mock('overload:Database_Query_Builder_Select');
 
 		// These assert that we have the correct table and model name set on the gateway
 		$select->shouldReceive('from')->with('users');
@@ -21,5 +30,24 @@ class DescribeUserGateway extends \PHPSpec\Context
 		$result = $this->subject->find_users($select);
 
 		$this->spec($result)->should->equal($return_value);
+	}
+
+	public function itFindsASingleUser()
+	{
+		$select = Mockery::mock('Database_Query_Builder_Select[where,from,execute]');
+
+		$id = 1;
+		$user = Mockery::mock('foo');
+		$db_iterator = Mockery::mock('db_iterator');
+		$db_iterator->shouldReceive('count')->andReturn(1);
+		$db_iterator->shouldReceive('current')->andReturn(array('id' => $id, 'email' => 'foo@bar.com', 'password' => 'foobar'));
+
+		$select->shouldReceive('where');
+		$select->shouldReceive('execute')->with($this->db)->andReturn($db_iterator);
+		$select->shouldReceive('from')->with('users');
+
+		$result = $this->subject->find_user($id, $select);
+		$this->spec($result)->should->beAnInstanceOf('Model_User');
+		$this->spec($result->state())->should->equal(AutoModeler_Model::STATE_LOADED);
 	}
 }
