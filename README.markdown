@@ -22,4 +22,4 @@ This app uses phpspec to drive it's development. If you want to run the specs, d
 
 This will install composer. Run the specs with:
 
-	./phpspec-composer.php spec -f d -b -c --bootstrap specs/bootstrap.php
+	./phpspec-composer.php spec -f d -b -c --bootstrap spec/bootstrap.php
