@@ -11,8 +11,6 @@ This is a demo app to show how to use various Kohana techniques I use.
 
 ## Things to do
 
- - Kostache layouts
- - Kostache recursing menus
  - DCI
 
 ## Specs
