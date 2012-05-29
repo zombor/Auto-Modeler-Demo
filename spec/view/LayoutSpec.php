@@ -32,4 +32,15 @@ class DescribeLayout extends \PHPSpec\Context
 		$css = current($scripts);
 		$this->spec($css['src'])->should->beString();
 	}
+
+	public function itHasAMenu()
+	{
+		$menu = $this->subject->menu();
+		$this->spec(count($menu))->should->beGreaterThan(0);
+
+		$first = current($menu);
+		$this->spec($first['name'])->should->beString();
+		$this->spec($first['href'])->should->beString();
+		$this->spec(array_key_exists('submenu', $first))->should->beTrue();
+	}
 }
