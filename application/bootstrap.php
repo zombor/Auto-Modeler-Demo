@@ -81,6 +81,7 @@ if (isset($_SERVER['KOHANA_ENV']))
  */
 Kohana::init(array(
 	'base_url'   => '/',
+	'index_file' => 'index.php',
 ));
 
 /**
@@ -107,5 +108,21 @@ Route::set('add user', '(user/add.html)')
 		array(
 			'controller' => 'user',
 			'action' => 'add',
+		)
+	);
+
+Route::set('list users', 'user/list.html')
+	->defaults(
+		array(
+			'controller' => 'user',
+			'action' => 'list',
+		)
+	);
+
+Route::set('view user', 'user/<user_id>/view.html')
+	->defaults(
+		array(
+			'controller' => 'user',
+			'action' => 'view',
 		)
 	);

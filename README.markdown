@@ -7,6 +7,7 @@ This is a demo app to show how to use various Kohana techniques I use.
  - AutoModeler v5
  - Kostache
  - Kohana 3.2
+ - PHPSpec
 
 ## Things to do
 
