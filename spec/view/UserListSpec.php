@@ -7,6 +7,11 @@ class DescribeUserList extends \PHPSpec\Context
 		$this->subject = new View_User_List;
 	}
 
+	public function itHasALayout()
+	{
+		$this->spec($this->subject instanceof View_Layout)->should->beTrue();
+	}
+
 	public function itHasAnArrayOfUsers()
 	{
 		$times = 5;

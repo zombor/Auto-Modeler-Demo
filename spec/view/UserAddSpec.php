@@ -7,6 +7,11 @@ class DescribeUserAdd extends \PHPSpec\Context
 		$this->subject = new View_User_Add;
 	}
 
+	public function itHasALayout()
+	{
+		$this->spec($this->subject instanceof View_Layout)->should->beTrue();
+	}
+
 	public function itHasAnEmailField()
 	{
 		$field = $this->subject->email();

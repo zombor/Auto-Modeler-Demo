@@ -1,6 +1,6 @@
 <?php
 
-class View_User_List extends KOstache
+class View_User_List extends View_Layout
 {
 	public $users;
 

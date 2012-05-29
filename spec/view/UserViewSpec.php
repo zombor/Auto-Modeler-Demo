@@ -7,6 +7,11 @@ class DescribeUserView extends \PHPSpec\Context
 		$this->subject = new View_User_View;
 	}
 
+	public function itHasALayout()
+	{
+		$this->spec($this->subject instanceof View_Layout)->should->beTrue();
+	}
+
 	public function itKnowsAboutTheUser()
 	{
 		$user = Mockery::mock();
