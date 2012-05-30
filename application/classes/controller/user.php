@@ -7,23 +7,16 @@ class Controller_User extends Controller
 		$view = new View_User_Add;
 		if (HTTP_Request::POST == $this->request->method())
 		{
-			$user = new Model_User;
-			$user->data(
-				array(
-					'email' => $this->request->post('email'),
-					'password' => $this->request->post('password'),
-				)
-			);
-			$dao = AutoModeler_DAO_Database::factory(Database::instance(), 'users');
+			$context = new Context_User_Add($this->request->post());
+			$result = $context->execute();
 
-			try
+			if ($result['status'] == Context_User_Add::SUCCESS)
 			{
-				$dao->create($user);
-				$this->request->redirect(url::base().Route::get('list users')->uri());
+				$this->request->redirect(Route::get('list users')->uri());
 			}
-			catch (AutoModeler_Exception_Validation $e)
+			else if ($result['status'] == Context_User_Add::FAILURE)
 			{
-				$view->errors = $e->as_array();
+				$view->errors = $result['errors'];
 			}
 		}
 
