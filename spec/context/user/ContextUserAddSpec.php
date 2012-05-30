@@ -14,8 +14,7 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 		$gateway = Mockery::mock('gateway');
 		$gateway->shouldReceive('create')->with($user)->once()->andReturn($user);
 
-		$context = new Context_User_Add($data, $user);
-		$context->gateway = $gateway;
+		$context = new Context_User_Add($data, $user, $gateway);
 
 		$result = $context->execute();
 		$this->spec($result['status'])->should->equal(Context_User_Add::SUCCESS);
@@ -34,7 +33,7 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 				'errors' => $errors,
 			]
 		);
-		$context = new Context_User_Add($data, $user);
+		$context = new Context_User_Add($data, $user, Mockery::mock('gateway'));
 
 		$result = $context->execute();
 		$this->spec($result['status'])->should->equal(Context_User_Add::FAILURE);
