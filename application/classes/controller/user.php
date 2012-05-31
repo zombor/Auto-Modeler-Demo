@@ -27,8 +27,9 @@ class Controller_User extends Controller
 	{
 		$view = new View_User_List;
 
-		$gateway = new AutoModeler_Gateway_Users(Database::instance());
-		$view->users = $gateway->find_users();
+		$factory = new Context_User_List_Factory;
+		$result = $factory->fetch()->execute();
+		$view->users = $result['users'];
 		$this->response->body($view);
 	}
 
