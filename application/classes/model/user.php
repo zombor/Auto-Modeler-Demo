@@ -6,6 +6,9 @@ class Model_User extends AutoModeler_Model
 		'id' => NULL,
 		'email' => NULL,
 		'password' => NULL,
+		'first_name' => NULL,
+		'last_name' => NULL,
+		'middle_name' => NULL,
 	);
 
 	protected $_rules = array(

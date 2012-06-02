@@ -10,9 +10,12 @@ class DescribeUser extends \PHPSpec\Context
 	public function itHasTheCorrectFields()
 	{
 		$fields = $this->subject->as_array();
-		$this->spec(array_key_exists('id', $fields))->shouldNot->beNull();
-		$this->spec(array_key_exists('email', $fields))->shouldNot->beNull();
-		$this->spec(array_key_exists('password', $fields))->shouldNot->beNull();
+		$this->spec(array_key_exists('id', $fields))->shouldNot->beFalse();
+		$this->spec(array_key_exists('email', $fields))->shouldNot->beFalse();
+		$this->spec(array_key_exists('password', $fields))->shouldNot->beFalse();
+		$this->spec(array_key_exists('first_name', $fields))->shouldNot->beFalse();
+		$this->spec(array_key_exists('last_name', $fields))->shouldNot->beFalse();
+		$this->spec(array_key_exists('middle_name', $fields))->shouldNot->beFalse();
 	}
 
 	public function itRequiresEmail()
