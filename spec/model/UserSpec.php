@@ -56,4 +56,30 @@ class DescribeUser extends \PHPSpec\Context
 
 		$this->spec($found)->should->beTrue();
 	}
+
+	public function itRequiresFirstName()
+	{
+		$rules = $this->subject->rules();
+		$found = FALSE;
+		foreach ($rules['first_name'] as $rule)
+		{
+			if ($rule == array('not_empty'))
+				$found = TRUE;
+		}
+
+		$this->spec($found)->should->beTrue();
+	}
+
+	public function itRequiresLastName()
+	{
+		$rules = $this->subject->rules();
+		$found = FALSE;
+		foreach ($rules['last_name'] as $rule)
+		{
+			if ($rule == array('not_empty'))
+				$found = TRUE;
+		}
+
+		$this->spec($found)->should->beTrue();
+	}
 }

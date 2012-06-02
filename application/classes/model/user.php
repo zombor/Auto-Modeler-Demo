@@ -16,6 +16,12 @@ class Model_User extends AutoModeler_Model
 			array('not_empty'),
 			array('email'),
 		),
+		'first_name' => array(
+			array('not_empty'),
+		),
+		'last_name' => array(
+			array('not_empty'),
+		),
 		'password' => array(
 			array('not_empty'),
 		),
