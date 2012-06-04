@@ -3,6 +3,7 @@
 class View_User_Add extends View_Layout
 {
 	public $errors = array();
+	public $groups = array();
 
 	public function has_errors()
 	{
@@ -40,5 +41,16 @@ class View_User_Add extends View_Layout
 			'has_error' => (bool) arr::get($this->errors, 'password'),
 			'error' => arr::get($this->errors, 'password'),
 		);
+	}
+
+	public function groups()
+	{
+		$groups = [];
+		foreach ($this->groups as $group)
+		{
+			$groups[] = ['id' => arr::get($group, 'id'), 'name' => arr::get($group, 'name')];
+		}
+
+		return $groups;
 	}
 }

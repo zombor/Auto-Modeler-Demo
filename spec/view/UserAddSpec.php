@@ -64,4 +64,32 @@ class DescribeUserAdd extends \PHPSpec\Context
 		$this->spec($password_field['has_error'])->should->beTrue();
 		$this->spec($password_field['error'])->should->equal('Password error');
 	}
+
+	public function itHasGroups()
+	{
+		$this->subject->groups = [
+			['id' => 1, 'name' => 'admin'],
+			['id' => 2, 'name' => 'user'],
+			];
+
+		$this->spec($this->subject->groups())->should->equal(
+			[
+				['id' => 1, 'name' => 'admin'],
+				['id' => 2, 'name' => 'user'],
+			]
+		);
+	}
+
+	public function itHandlesPoorlyFormattedGroups()
+	{
+		$this->subject->groups = [
+			['name' => 'admin'],
+		];
+
+		$this->spec($this->subject->groups())->should->equal(
+			[
+				['id' => NULL, 'name' => 'admin'],
+			]
+		);
+	}
 }
