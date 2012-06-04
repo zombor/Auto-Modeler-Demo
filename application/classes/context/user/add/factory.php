@@ -4,7 +4,7 @@ class Context_User_Add_Factory
 {
 	protected $_data = [];
 
-	public function __construct(array $data)
+	public function __construct(array $data = [])
 	{
 		$this->_data = $data;
 	}
