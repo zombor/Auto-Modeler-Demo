@@ -23,7 +23,6 @@ class Controller_User extends Controller
 		else
 		{
 			$view->groups = $factory->fetch()->groups();
-			var_dump($view->groups);
 		}
 
 		$this->response->body($view);

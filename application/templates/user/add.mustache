@@ -28,6 +28,14 @@
 		</dt>
 		<dd><input type="password" name="{{name}}" id="{{id}}"{{#has_error}} class="highlight bad"{{/has_error}} /></dd>
 		{{/password}}
+		<dt>
+			<label for="groups">Groups</label>
+		</dt>
+		<dd>
+			<ul>
+			{{#groups}}<li><label><input type="checkbox" value="{{id}}" /> {{name}}</label></li>{{/groups}}
+			</ul>
+		</dd>
 		<dd><input type="submit" value="New User" /></dd>
 	</dl>
 </form>
