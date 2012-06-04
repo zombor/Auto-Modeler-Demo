@@ -21,6 +21,17 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 		$this->spec($result['data_array'])->should->equal($data_array);
 	}
 
+	public function itAssignsData()
+	{
+		$user = Mockery::mock('Model_User');
+		$user->shouldReceive('data')->twice();
+		$context = new Context_User_Add([], $user, Mockery::mock('gateway'));
+		$data = ['name' => 'phpspec', 'password' => 'qwerty'];
+		$context->data($data);
+
+		$this->spec($context->data())->should->equal($data);
+	}
+
 	public function itHandlesInvalidData()
 	{
 		$data = [];

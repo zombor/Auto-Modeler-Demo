@@ -29,4 +29,15 @@ class Context_User_Add
 			return ['status' => self::FAILURE, 'errors' => $valid['errors']];
 		}
 	}
+
+	public function data(array $data = NULL)
+	{
+		if ($data)
+		{
+			$this->data = $data;
+			$this->user->data($data);
+		}
+
+		return $this->data;
+	}
 }
