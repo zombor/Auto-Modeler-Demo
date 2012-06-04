@@ -9,9 +9,8 @@ class Context_User_Add
 
 	public function __construct(array $data, Model_User $user, $gateway)
 	{
-		$this->data = $data;
 		$this->user = $user;
-		$this->user->data($data);
+		$this->assign_data($data);
 		$this->gateway = $gateway;
 	}
 
@@ -34,10 +33,15 @@ class Context_User_Add
 	{
 		if ($data)
 		{
-			$this->data = $data;
-			$this->user->data($data);
+			$this->assign_data($data);
 		}
 
 		return $this->data;
+	}
+
+	protected function assign_data(array $data)
+	{
+		$this->data = $data;
+		$this->user->data($data);
 	}
 }
