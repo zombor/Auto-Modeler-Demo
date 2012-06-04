@@ -7,11 +7,12 @@ class Context_User_Add
 
 	public $gateway;
 
-	public function __construct(array $data, Model_User $user, $gateway)
+	public function __construct(array $data, Model_User $user, $gateway, $group_gateway = NULL)
 	{
 		$this->user = $user;
 		$this->assign_data($data);
 		$this->gateway = $gateway;
+		$this->group_gateway = $group_gateway;
 	}
 
 	public function execute()
@@ -27,6 +28,19 @@ class Context_User_Add
 		{
 			return ['status' => self::FAILURE, 'errors' => $valid['errors']];
 		}
+	}
+
+	public function groups()
+	{
+		$groups = $this->group_gateway->find_groups();
+		$array = [];
+
+		foreach ($groups as $group)
+		{
+			$array[] = $group->as_array();
+		}
+
+		return $array;
 	}
 
 	public function data(array $data = NULL)

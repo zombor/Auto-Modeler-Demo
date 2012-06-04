@@ -21,6 +21,27 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 		$this->spec($result['data_array'])->should->equal($data_array);
 	}
 
+	public function itRetreivesGroupsToChooseFrom()
+	{
+		$data = [];
+		$user = Mockery::mock('Model_User');
+		$user->shouldReceive('data')->once();
+		$user_gateway = Mockery::mock('user_gateway');
+		$group_gateway = Mockery::mock('group_gateway');
+		$group = Mockery::mock('group');
+		$group->shouldReceive('as_array')->andReturn($data);
+		$group_gateway->shouldReceive('find_groups')->andReturn(
+			[
+				$group,
+				$group,
+			]
+		);
+
+		$context = new Context_User_Add($data, $user, $user_gateway, $group_gateway);
+		$groups = $context->groups();
+		$this->spec($groups)->should->equal([$data, $data]);
+	}
+
 	public function itAssignsData()
 	{
 		$user = Mockery::mock('Model_User');
