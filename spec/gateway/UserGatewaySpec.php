@@ -4,7 +4,8 @@ class DescribeUserGateway extends \PHPSpec\Context
 {
 	public function beforeAll()
 	{
-		$this->db = Mockery::mock('alias:Database');
+		$this->db = Mockery::mock('Database');
+		$this->db->shouldReceive('disconnect');
 	}
 
 	public function before()
@@ -19,7 +20,7 @@ class DescribeUserGateway extends \PHPSpec\Context
 
 	public function itFindsAllUsers()
 	{
-		$select = Mockery::mock('overload:Database_Query_Builder_Select');
+		$select = Mockery::mock('Database_Query_Builder_Select');
 
 		// These assert that we have the correct table and model name set on the gateway
 		$select->shouldReceive('from')->with('users');
