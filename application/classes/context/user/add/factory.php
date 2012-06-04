@@ -11,7 +11,7 @@ class Context_User_Add_Factory
 
 	public function fetch()
 	{
-		return new Context_User_Add($this->_data, $this->user(), $this->gateway());
+		return new Context_User_Add($this->_data, $this->user(), $this->gateway(), $this->group_gateway());
 	}
 
 	public function user()
@@ -22,5 +22,10 @@ class Context_User_Add_Factory
 	public function gateway()
 	{
 		return new AutoModeler_Gateway_Users(Database::instance());
+	}
+
+	public function group_gateway()
+	{
+		return new AutoModeler_Gateway_Groups(Database::instance());
 	}
 }
