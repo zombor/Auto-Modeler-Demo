@@ -5,7 +5,7 @@ class Context_User_Add
 	const SUCCESS = 'success';
 	const FAILURE = 'failure';
 
-	public function __construct(array $data, Model_User $user, $user_gateway, $group_gateway = NULL)
+	public function __construct(array $data, Model_User $user, $user_gateway, $group_gateway)
 	{
 		$this->user = $user;
 		$this->assign_data($data);
@@ -20,6 +20,7 @@ class Context_User_Add
 		if ($valid === TRUE)
 		{
 			$user = $this->user_gateway->create($this->user);
+			$this->group_gateway->assign_groups_to_user($this->user->id, arr::get($this->data, 'groups'));
 			return ['status' => self::SUCCESS, 'data_array' => $user->as_array()];
 		}
 		else

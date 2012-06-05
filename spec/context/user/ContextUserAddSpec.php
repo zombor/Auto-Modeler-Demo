@@ -2,7 +2,7 @@
 
 class DescribeContextUserAdd extends \PHPSpec\Context
 {
-	public function itHandlesSuccess()
+	public function itSavesAUser()
 	{
 		$data = [
 			'email' => 'foo@bar.com',
@@ -27,14 +27,41 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 		)->once();
 		$user->shouldReceive('as_array')->andReturn($data_array = []);
 
-		$gateway = Mockery::mock('gateway');
-		$gateway->shouldReceive('create')->with($user)->once()->andReturn($user);
+		$user_gateway = Mockery::mock('gateway');
+		$user_gateway->shouldReceive('create')->with($user)->once()->andReturn($user);
 
-		$context = new Context_User_Add($data, $user, $gateway);
+		$group_gateway = Mockery::mock('gateway');
+		$group_gateway->shouldReceive('assign_groups_to_user');
+
+		$context = new Context_User_Add($data, $user, $user_gateway, $group_gateway);
 
 		$result = $context->execute();
 		$this->spec($result['status'])->should->equal(Context_User_Add::SUCCESS);
 		$this->spec($result['data_array'])->should->equal($data_array);
+	}
+
+	public function itSavesGroupsAssociatedWithTheUser()
+	{
+		$data = [
+			'email' => 'foo@bar.com',
+			'password' => 'qwerty',
+			'first_name' => 'foo',
+			'last_name' => 'bar',
+			'middle_name' => 'f',
+			'groups' => [1,2,3],
+		];
+		$user = Mockery::mock('Model_User');
+		$user->shouldReceive('valid')->andReturn(TRUE)->once();
+		$user->shouldReceive('data');
+		$user->shouldReceive('as_array')->andReturn($data_array = []);
+		$user_gateway = Mockery::mock('gateway');
+		$user_gateway->shouldReceive('create')->andReturn($user);
+		$group_gateway = Mockery::mock('gateway');
+		$group_gateway->shouldReceive('assign_groups_to_user')->once()->with('', [1,2,3]);
+
+		$context = new Context_User_Add($data, $user, $user_gateway, $group_gateway);
+
+		$result = $context->execute();
 	}
 
 	public function itRetreivesGroupsToChooseFrom()
@@ -62,7 +89,7 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 	{
 		$user = Mockery::mock('Model_User');
 		$user->shouldReceive('data')->twice();
-		$context = new Context_User_Add([], $user, Mockery::mock('gateway'));
+		$context = new Context_User_Add([], $user, Mockery::mock('gateway'), Mockery::mock('gateway'));
 		$data = ['name' => 'phpspec', 'password' => 'qwerty'];
 		$context->data($data);
 
@@ -81,7 +108,7 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 				'errors' => $errors,
 			]
 		);
-		$context = new Context_User_Add($data, $user, Mockery::mock('gateway'));
+		$context = new Context_User_Add($data, $user, Mockery::mock('gateway'), Mockery::mock('gateway'));
 
 		$result = $context->execute();
 		$this->spec($result['status'])->should->equal(Context_User_Add::FAILURE);
