@@ -59,4 +59,10 @@ class DescribeGroupGateway extends \PHPSpec\Context
 		$insert->shouldReceive('execute')->with($this->db)->once();
 		$result = $this->subject->assign_groups_to_user(1, $groups, $insert);
 	}
+
+	public function itSavesNothingWhenSavingGroupsButPassedNoGroupIDs()
+	{
+		$insert = Mockery::mock('Database_Query_Builder_Insert');
+		$result = $this->subject->assign_groups_to_user(1, array(), $insert);
+	}
 }
