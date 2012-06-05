@@ -28,6 +28,27 @@
 		</dt>
 		<dd><input type="password" name="{{name}}" id="{{id}}"{{#has_error}} class="highlight bad"{{/has_error}} /></dd>
 		{{/password}}
+		{{#first_name}}
+		<dt>
+			<label for="{{id}}">{{label}}</label>
+			{{#has_error}}<label for="{{id}}" class="error">{{error}}</label>{{/has_error}}
+		</dt>
+		<dd><input name="{{name}}" id="{{id}}"{{#has_error}} class="highlight bad"{{/has_error}} /></dd>
+		{{/first_name}}
+		{{#last_name}}
+		<dt>
+			<label for="{{id}}">{{label}}</label>
+			{{#has_error}}<label for="{{id}}" class="error">{{error}}</label>{{/has_error}}
+		</dt>
+		<dd><input name="{{name}}" id="{{id}}"{{#has_error}} class="highlight bad"{{/has_error}} /></dd>
+		{{/last_name}}
+		{{#middle_name}}
+		<dt>
+			<label for="{{id}}">{{label}}</label>
+			{{#has_error}}<label for="{{id}}" class="error">{{error}}</label>{{/has_error}}
+		</dt>
+		<dd><input name="{{name}}" id="{{id}}"{{#has_error}} class="highlight bad"{{/has_error}} /></dd>
+		{{/middle_name}}
 		<dt>
 			<label for="groups">Groups</label>
 		</dt>

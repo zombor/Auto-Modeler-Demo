@@ -16,11 +16,10 @@ class Context_User_Add
 	public function execute()
 	{
 		$valid = $this->user->valid();
-
 		if ($valid === TRUE)
 		{
 			$user = $this->user_gateway->create($this->user);
-			$this->group_gateway->assign_groups_to_user($this->user->id, arr::get($this->data, 'groups'));
+			$this->group_gateway->assign_groups_to_user($this->user->id, arr::get($this->data, 'groups', array()));
 			return ['status' => self::SUCCESS, 'data_array' => $user->as_array()];
 		}
 		else
