@@ -54,6 +54,14 @@ class Context_User_Add
 	protected function assign_data(array $data)
 	{
 		$this->data = $data;
-		$this->user->data($data);
+		$this->user->data(
+			[
+				'email' => arr::get($data, 'email'),
+				'password' => arr::get($data, 'password'),
+				'first_name' => arr::get($data, 'first_name'),
+				'last_name' => arr::get($data, 'last_name'),
+				'middle_name' => arr::get($data, 'middle_name'),
+			]
+		);
 	}
 }

@@ -4,11 +4,27 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 {
 	public function itHandlesSuccess()
 	{
-		$data = [];
+		$data = [
+			'email' => 'foo@bar.com',
+			'password' => 'qwerty',
+			'first_name' => 'foo',
+			'last_name' => 'bar',
+			'middle_name' => 'f',
+			'groups' => [1,2,3],
+		];
+
 		$user = Mockery::mock('Model_User');
 		$errors = Mockery::mock('errors');
 		$user->shouldReceive('valid')->andReturn(TRUE)->once();
-		$user->shouldReceive('data')->once();
+		$user->shouldReceive('data')->with(
+			[
+				'email' => 'foo@bar.com',
+				'password' => 'qwerty',
+				'first_name' => 'foo',
+				'last_name' => 'bar',
+				'middle_name' => 'f',
+			]
+		)->once();
 		$user->shouldReceive('as_array')->andReturn($data_array = []);
 
 		$gateway = Mockery::mock('gateway');
