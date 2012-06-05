@@ -51,4 +51,12 @@ class DescribeGroupGateway extends \PHPSpec\Context
 		$this->spec($result)->should->beAnInstanceOf('Model_Group');
 		$this->spec($result->state())->should->equal(AutoModeler_Model::STATE_LOADED);
 	}
+
+	public function itSavesGroupsForAUser()
+	{
+		$insert = Mockery::mock('Database_Query_Builder_Insert');
+		$insert->shouldReceive('values')->with($groups = [1,2,3])->once();
+		$insert->shouldReceive('execute')->with($this->db)->once();
+		$result = $this->subject->assign_groups_to_user(1, $groups, $insert);
+	}
 }

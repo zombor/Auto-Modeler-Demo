@@ -5,11 +5,12 @@ class Controller_User extends Controller
 	public function action_add()
 	{
 		$factory = new Context_User_Add_Factory;
+		$context = $factory->fetch();
 		$view = new View_User_Add;
 		if (HTTP_Request::POST == $this->request->method())
 		{
-			$factory->data($this->request->post());
-			$result = $factory->fetch()->execute();
+			$context->data($this->request->post());
+			$result = $context->execute();
 
 			if ($result['status'] == Context_User_Add::SUCCESS)
 			{
@@ -22,7 +23,7 @@ class Controller_User extends Controller
 		}
 		else
 		{
-			$view->groups = $factory->fetch()->groups();
+			$view->groups = $context->groups();
 		}
 
 		$this->response->body($view);

@@ -20,4 +20,15 @@ class AutoModeler_Gateway_Groups extends AutoModeler_Gateway_Database
 		$select->where('id', '=', $id);
 		return $this->_load_object($select);
 	}
+
+	public function assign_groups_to_user($user_id, array $groups, Database_Query_Builder_Insert $insert = NULL)
+	{
+		if ($insert === NULL)
+		{
+			$insert = db::insert('users_groups', ['user_id', 'group_id']);
+		}
+
+		$insert->values($groups);
+		$insert->execute($this->_db);
+	}
 }
