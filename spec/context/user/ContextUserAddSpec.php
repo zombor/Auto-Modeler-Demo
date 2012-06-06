@@ -21,7 +21,6 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 	public function itSavesAUser()
 	{
 		$errors = Mockery::mock('errors');
-		$this->user->shouldReceive('valid')->andReturn(TRUE)->once();
 		$this->user->shouldReceive('data')->with(
 			[
 				'email' => 'foo@bar.com',
@@ -46,7 +45,6 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 
 	public function itSavesGroupsAssociatedWithTheUser()
 	{
-		$this->user->shouldReceive('valid')->andReturn(TRUE)->once();
 		$this->user->shouldReceive('data');
 		$this->user->shouldReceive('as_array')->andReturn($data_array = []);
 		$this->user_gateway->shouldReceive('create')->andReturn($this->user);
@@ -81,8 +79,6 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 		$context = new Context_User_Add([], $this->user, Mockery::mock('gateway'), Mockery::mock('gateway'));
 		$data = ['name' => 'phpspec', 'password' => 'qwerty'];
 		$context->data($data);
-
-		$this->spec($context->data())->should->equal($data);
 	}
 
 	public function itHandlesInvalidData()
@@ -90,13 +86,14 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 		$data = [];
 		$errors = Mockery::mock('errors');
 		$this->user->shouldReceive('data');
-		$this->user->shouldReceive('valid')->andReturn(
-			[
-				'status' => FALSE,
-				'errors' => $errors,
-			]
-		);
-		$context = new Context_User_Add($data, $this->user, Mockery::mock('gateway'), Mockery::mock('gateway'));
+		$user_gateway = Mockery::mock('gateway');
+		$user_gateway->shouldReceive('create')
+			->once()
+			->andThrow(
+				'AutoModeler_Exception_Validation',
+				$errors = array('foo')
+			);
+		$context = new Context_User_Add($data, $this->user, $user_gateway, Mockery::mock('gateway'));
 
 		$result = $context->execute();
 		$this->spec($result['status'])->should->equal(Context_User_Add::FAILURE);
