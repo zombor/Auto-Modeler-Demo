@@ -101,6 +101,7 @@ Kohana::modules(array(
 	'database'   => MODPATH.'database',   // Database access
 	'auto-modeler' => MODPATH.'auto-modeler',
 	'kostache' => MODPATH.'kostache',
+	'minion-core' => MODPATH.'minion-core',
 	));
 
 Route::set('add user', '(user/add.html)')

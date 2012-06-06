@@ -10,3 +10,6 @@
 [submodule "modules/kostache"]
 	path = modules/kostache
 	url = git://github.com/zombor/KOstache.git
+[submodule "modules/minion-core"]
+	path = modules/minion-core
+	url = https://github.com/kohana-minion/core.git
