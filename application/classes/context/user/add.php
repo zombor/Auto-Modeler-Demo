@@ -22,6 +22,9 @@ class Context_User_Add
 		$this->_group_gateway = $group_gateway;
 	}
 
+	/*
+	 * Starts the processing of this use case.
+	 */
 	public function execute()
 	{
 		try
@@ -31,12 +34,18 @@ class Context_User_Add
 		}
 		catch (AutoModeler_Exception_Validation $e)
 		{
-			return ['status' => self::FAILURE, 'errors' => $e->as_array()];
+			$status = ['status' => self::FAILURE, 'errors' => $e->as_array()];
 		}
 
 		return $status;
 	}
 
+	/*
+	 * This is a helper method to assist in the request part of this use case.
+	 * It is used before the use case is processed. Since this data is part
+	 * of the use case, I feel it belongs here, and the user of this context
+	 * can ask it for this data.
+	 */
 	public function groups()
 	{
 		$groups = $this->_group_gateway->find_groups();
@@ -50,6 +59,9 @@ class Context_User_Add
 		return $array;
 	}
 
+	/*
+	 * Post-construct assignment of data. Defers to the role
+	 */
 	public function data(array $data)
 	{
 		$this->_user->assign_data($data);
