@@ -18,7 +18,7 @@ class Context_User_List
 		$return = [];
 		foreach($users as $user)
 		{
-			$return[] = $user->as_array();
+			$return[] = $user;
 		}
 
 		return ['status' => self::SUCCESS, 'users' => $return];

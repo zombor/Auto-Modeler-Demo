@@ -10,8 +10,9 @@ class View_User_List extends View_Layout
 		foreach ($this->users as $user)
 		{
 			$users[] = [
-				'id' => arr::get($user, 'id'),
-				'email' => arr::get($user, 'email'),
+				'id' => $user->id,
+				'email' => $user->email,
+				'name' => $user->name(),
 			];
 		}
 

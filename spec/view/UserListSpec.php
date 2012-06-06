@@ -14,19 +14,18 @@ class DescribeUserList extends \PHPSpec\Context
 
 	public function itHasAnArrayOfUsers()
 	{
-		$users = [
-			['id' => 1, 'email' => 'foo@bar.com', 'password' => 'qwerty'],
-			['id' => 2, 'email' => 'foo2@bar.com', 'password' => 'qwerty'],
-			['id' => 3, 'email' => 'foo3@bar.com', 'password' => 'qwerty'],
-			['id' => 4, 'email' => 'foo4@bar.com', 'password' => 'qwerty'],
-			['id' => 5, 'email' => 'foo5@bar.com', 'password' => 'qwerty'],
-		];
+		$user1 = new Model_User;
+		$user1->data(['id' => 1, 'email' => 'foo@bar.com', 'password' => 'qwerty', 'first_name' => 'foo', 'last_name' => 'bar']);
+		$user2 = new Model_User;
+		$user2->data(['id' => 2, 'email' => 'foo2@bar.com', 'password' => 'qwerty', 'first_name' => 'foo2', 'last_name' => 'bar']);
+		$user3 = new Model_User;
+		$user3->data(['id' => 3, 'email' => 'foo3@bar.com', 'password' => 'qwerty', 'first_name' => 'foo3', 'last_name' => 'bar']);
+
+		$users = [$user1, $user2, $user3];
 		$expected = [
-			['id' => 1, 'email' => 'foo@bar.com',],
-			['id' => 2, 'email' => 'foo2@bar.com',],
-			['id' => 3, 'email' => 'foo3@bar.com',],
-			['id' => 4, 'email' => 'foo4@bar.com',],
-			['id' => 5, 'email' => 'foo5@bar.com',],
+			['id' => 1, 'email' => 'foo@bar.com', 'name' => 'foo bar'],
+			['id' => 2, 'email' => 'foo2@bar.com', 'name' => 'foo2 bar'],
+			['id' => 3, 'email' => 'foo3@bar.com', 'name' => 'foo3 bar'],
 		];
 		$this->subject->users = $users;
 
