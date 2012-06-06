@@ -82,4 +82,11 @@ class DescribeUser extends \PHPSpec\Context
 
 		$this->spec($found)->should->beTrue();
 	}
+
+	public function itHasAHumanReadableName()
+	{
+		$this->subject->data(['first_name' => 'foo', 'last_name' => 'bar']);
+
+		$this->spec($this->subject->name())->should->be('foo bar');
+	}
 }

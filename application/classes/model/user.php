@@ -26,4 +26,9 @@ class Model_User extends AutoModeler_Model
 			array('not_empty'),
 		),
 	);
+
+	public function name()
+	{
+		return $this->first_name.' '.$this->last_name;
+	}
 }
