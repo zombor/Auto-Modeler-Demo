@@ -1,6 +1,6 @@
 <?php
 
-class AutoModeler_Gateway_Groups extends AutoModeler_Gateway_Database
+class AutoModeler_Gateway_Groups extends AutoModeler_Repository_Database
 {
 	protected $_model_name = 'Model_Group';
 	protected $_table_name = 'groups';

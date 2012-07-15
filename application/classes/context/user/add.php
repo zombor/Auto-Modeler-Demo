@@ -13,12 +13,32 @@ class Context_User_Add
 		$groups = arr::get($data, 'groups', array());
 		unset($data['groups']);
 
-		// Normally, UnsavedUser would be a private class of this context,
-		// but you can't nest classes in php. This hard dependancy is ok in
-		// this situation because of these facts. The role should be hidden
-		// from the outside world.
-		$this->_user = new UnsavedUser($user, $data, $groups, $user_gateway, $group_gateway);
+		$user->create = function($data, $groups, $user_gateway, $group_gateway) use($user)
+		{
+			call_user_func($user->assign_data, $data);
+			$user = $user_gateway->create($user);
+			$group_gateway->assign_groups_to_user($user->id, $groups);
 
+			return $user;
+		};
+
+		$user->assign_data = function(array $data) use($user)
+		{
+			$user->data(
+				[
+					'email' => arr::get($data, 'email'),
+					'password' => arr::get($data, 'password'),
+					'first_name' => arr::get($data, 'first_name'),
+					'last_name' => arr::get($data, 'last_name'),
+					'middle_name' => arr::get($data, 'middle_name'),
+				]
+			);
+		};
+
+		$this->_data = $data;
+		$this->_user = $user;
+		$this->_groups = $groups;
+		$this->_user_gateway = $user_gateway;
 		$this->_group_gateway = $group_gateway;
 	}
 
@@ -29,7 +49,7 @@ class Context_User_Add
 	{
 		try
 		{
-			$user = $this->_user->create();
+			$user = call_user_func($this->_user->create, $this->_data, $this->_groups, $this->_user_gateway, $this->_group_gateway);
 			$status = ['status' => self::SUCCESS, 'data_array' => $user->as_array()];
 		}
 		catch (AutoModeler_Exception_Validation $e)
@@ -64,52 +84,6 @@ class Context_User_Add
 	 */
 	public function data(array $data)
 	{
-		$this->_user->assign_data($data);
-	}
-}
-
-/**
- * This is a role class, used to decorate the user model to behave in this use case
- */
-class UnsavedUser
-{
-	protected $_user;
-	protected $_data;
-	protected $_groups;
-
-	protected $_user_gateway;
-	protected $_group_gateway;
-
-	public function __construct(Model_User $user, array $data, array $groups, $user_gateway, $group_gateway)
-	{
-		$this->_user = $user;
-		$this->_data = $data;
-		$this->_user->data($data);
-		$this->_groups = $groups;
-
-		$this->_user_gateway = $user_gateway;
-		$this->_group_gateway = $group_gateway;
-	}
-
-	public function create()
-	{
-		$user = $this->_user_gateway->create($this->_user);
-		$this->_group_gateway->assign_groups_to_user($user->id, $this->_groups);
-
-		return $user;
-	}
-
-	public function assign_data(array $data)
-	{
-		$this->data = $data;
-		$this->_user->data(
-			[
-				'email' => arr::get($data, 'email'),
-				'password' => arr::get($data, 'password'),
-				'first_name' => arr::get($data, 'first_name'),
-				'last_name' => arr::get($data, 'last_name'),
-				'middle_name' => arr::get($data, 'middle_name'),
-			]
-		);
+		call_user_func($this->_user->assign_data, $data);
 	}
 }

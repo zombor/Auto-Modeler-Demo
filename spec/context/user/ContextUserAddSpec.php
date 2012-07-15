@@ -14,8 +14,8 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 		];
 
 		$this->user = Mockery::mock('Model_User');
-		$this->user_gateway = Mockery::mock('gateway');
-		$this->group_gateway = Mockery::mock('gateway');
+		$this->user_gateway = Mockery::mock('user_gateway');
+		$this->group_gateway = Mockery::mock('group_gateway');
 	}
 
 	public function itSavesAUser()
@@ -58,7 +58,6 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 	public function itRetreivesGroupsToChooseFrom()
 	{
 		$data = [];
-		$this->user->shouldReceive('data')->once();
 		$group = Mockery::mock('group');
 		$group->shouldReceive('as_array')->andReturn($data);
 		$this->group_gateway->shouldReceive('find_groups')->andReturn(
@@ -75,7 +74,7 @@ class DescribeContextUserAdd extends \PHPSpec\Context
 
 	public function itAssignsData()
 	{
-		$this->user->shouldReceive('data')->twice();
+		$this->user->shouldReceive('data')->once();
 		$context = new Context_User_Add([], $this->user, Mockery::mock('gateway'), Mockery::mock('gateway'));
 		$data = ['name' => 'phpspec', 'password' => 'qwerty'];
 		$context->data($data);

@@ -25,6 +25,7 @@ class DescribeUserGateway extends \PHPSpec\Context
 		// These assert that we have the correct table and model name set on the gateway
 		$select->shouldReceive('from')->with('users');
 		$select->shouldReceive('as_object')->with('Model_User');
+		$select->shouldReceive('where')->with('active', '=', TRUE)->once();
 
 		// We don't care what the return value is, we trust that database works correctly
 		$select->shouldReceive('execute')->with($this->db)->andReturn($return_value = array());
