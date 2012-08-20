@@ -100,6 +100,7 @@ Kohana::$config->attach(new Config_File);
 Kohana::modules(array(
 	'database'   => MODPATH.'database',   // Database access
 	'auto-modeler' => MODPATH.'auto-modeler',
+	'arden' => MODPATH.'arden',
 	'kostache' => MODPATH.'kostache',
 	'minion-core' => MODPATH.'minion-core',
 	));

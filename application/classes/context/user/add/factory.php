@@ -21,7 +21,13 @@ class Context_User_Add_Factory
 
 	public function gateway()
 	{
-		return new AutoModeler_Gateway_Users(Database::instance());
+		return new AutoModeler_Gateway_Users(
+			Database::instance(),
+			new Database_Query_Builder_Select,
+			new Database_Query_Builder_Insert,
+			new Database_Query_Builder_Update,
+			new Database_Query_Builder_Delete
+		);
 	}
 
 	public function group_gateway()

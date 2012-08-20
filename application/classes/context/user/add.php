@@ -24,15 +24,11 @@ class Context_User_Add
 
 		$user->assign_data = function(array $data) use($user)
 		{
-			$user->data(
-				[
-					'email' => arr::get($data, 'email'),
-					'password' => arr::get($data, 'password'),
-					'first_name' => arr::get($data, 'first_name'),
-					'last_name' => arr::get($data, 'last_name'),
-					'middle_name' => arr::get($data, 'middle_name'),
-				]
-			);
+			$user->email = arr::get($data, 'email');
+			$user->password = arr::get($data, 'password');
+			$user->first_name = arr::get($data, 'first_name');
+			$user->last_name = arr::get($data, 'last_name');
+			$user->middle_name = arr::get($data, 'middle_name');
 		};
 
 		$this->_data = $data;
@@ -50,7 +46,8 @@ class Context_User_Add
 		try
 		{
 			$user = call_user_func($this->_user->create, $this->_data, $this->_groups, $this->_user_gateway, $this->_group_gateway);
-			$status = ['status' => self::SUCCESS, 'data_array' => $user->as_array()];
+			die(var_dump($user));
+			$status = ['status' => self::SUCCESS, 'data_array' => $this->_data];
 		}
 		catch (AutoModeler_Exception_Validation $e)
 		{

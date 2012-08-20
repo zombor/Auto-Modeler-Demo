@@ -1,24 +1,17 @@
 <?php
 
-class AutoModeler_Gateway_Users extends AutoModeler_Repository_Database
+class AutoModeler_Gateway_Users extends Arden_Repository_KohanaDatabase
 {
-	protected $_model_name = 'Model_User';
+	protected $_model_class = 'Model_User';
 	protected $_table_name = 'users';
 
-	public function find_users(Database_Query_Builder_Select $select = NULL)
+	public function find_users()
 	{
-		$select->where('active', '=', TRUE);
-		return $this->_load_set($select);
+		return $this->load_set([]);
 	}
 
-	public function find_user($id, Database_Query_Builder_Select $select = NULL)
+	public function find_user($id)
 	{
-		if ($select === NULL)
-		{
-			$select = db::select();
-		}
-
-		$select->where('id', '=', $id);
-		return $this->_load_object($select);
+		return $this->load_object(['id' => $id]);
 	}
 }

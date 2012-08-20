@@ -13,3 +13,6 @@
 [submodule "modules/minion-core"]
 	path = modules/minion-core
 	url = https://github.com/kohana-minion/core.git
+[submodule "modules/arden"]
+	path = modules/arden
+	url = git://github.com/zombor/Arden-PHP.git
